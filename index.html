@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection Sites Commerçants</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+body {background:#111; color:#fff;}
+
+nav {
+    position:fixed;
+    top:0;
+    width:100%;
+    background:#000;
+    display:flex;
+    overflow-x:auto;
+    z-index:1000;
+}
+nav button {
+    flex:1;
+    padding:15px;
+    border:none;
+    background:none;
+    color:#fff;
+    cursor:pointer;
+    transition:0.3s;
+}
+nav button:hover {background:#333;}
+
+.section {
+    display:none;
+    min-height:100vh;
+    padding:100px 20px 40px;
+}
+
+.active {display:block;}
+
+.hero {
+    text-align:center;
+    padding:60px 20px;
+}
+.hero h1 {font-size:2.5rem;}
+.hero p {margin:20px 0;}
+.btn {
+    background:#ff5a5f;
+    padding:12px 25px;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+    transition:0.3s;
+}
+.btn:hover {transform:scale(1.05);}
+
+.services, .reviews, .contact {
+    margin-top:40px;
+}
+.cards {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+.card {
+    background:#222;
+    padding:20px;
+    border-radius:10px;
+    transition:0.3s;
+}
+.card:hover {transform:translateY(-5px);}
+
+input, textarea {
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:5px;
+}
+
+@media(max-width:768px){
+    .hero h1 {font-size:1.8rem;}
+}
+</style>
+</head>
+
+<body>
+
+<nav id="nav"></nav>
+
+<div id="content"></div>
+
+<script>
+
+const businesses = [
+{title:"Restaurant Élégant", color:"#1a1a1a"},
+{title:"Coiffeur Moderne", color:"#f4f4f4"},
+{title:"Salle de Sport", color:"#111"},
+{title:"Dentiste", color:"#eaf6ff"},
+{title:"Garage Auto", color:"#222"},
+{title:"Boulangerie", color:"#f7e7ce"},
+{title:"Immobilier Luxe", color:"#0b1d2a"},
+{title:"Coach Sportif", color:"#101820"},
+{title:"Fleuriste", color:"#ffe4ec"},
+{title:"Barbershop", color:"#1c1c1c"},
+];
+
+const nav = document.getElementById("nav");
+const content = document.getElementById("content");
+
+businesses.forEach((b,i)=>{
+
+    // NAV
+    const btn = document.createElement("button");
+    btn.innerText = b.title;
+    btn.onclick = ()=>show(i);
+    nav.appendChild(btn);
+
+    // SECTION
+    const section = document.createElement("div");
+    section.className = "section";
+    section.style.background = b.color;
+
+    section.innerHTML = `
+    <div class="hero">
+        <h1>${b.title}</h1>
+        <p>Offrez-vous une expérience unique et professionnelle.</p>
+        <button class="btn">Réserver maintenant</button>
+    </div>
+
+    <div class="services">
+        <h2>Services</h2>
+        <div class="cards">
+            <div class="card">Service Premium</div>
+            <div class="card">Consultation</div>
+            <div class="card">Offre spéciale</div>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <h2>Avis clients</h2>
+        <div class="cards">
+            <div class="card">⭐️⭐️⭐️⭐️⭐️ Excellent service !</div>
+            <div class="card">⭐️⭐️⭐️⭐️ Très satisfait</div>
+            <div class="card">⭐️⭐️⭐️⭐️⭐️ Je recommande</div>
+        </div>
+    </div>
+
+    <div class="contact">
+        <h2>Contact</h2>
+        <button class="btn">Appeler</button>
+        <button class="btn">WhatsApp</button>
+
+        <form>
+            <input placeholder="Nom">
+            <input placeholder="Email">
+            <textarea placeholder="Message"></textarea>
+            <button class="btn">Envoyer</button>
+        </form>
+    </div>
+    `;
+
+    content.appendChild(section);
+});
+
+function show(i){
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+    document.querySelectorAll(".section")[i].classList.add("active");
+}
+
+show(0);
+
+</script>
+
+</body>
+</html>
